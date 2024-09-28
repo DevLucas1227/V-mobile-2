@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Rotas - Cristo Rei</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .route-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .route-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq1eR68ZDAjEcS9TzpJmhg0kDCBMQ1fLs&callback=initMap" 
+    async defer></script>
+    <script>
+        let map;
+        let markers = [];
+
+        function initMap() {
+            // Foca o mapa em Chapecó
+            const chapeco = { lat: -27.1000, lng: -52.6150 };
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: chapeco,
+            });
+        }
+
+        function addMarkers() {
+            const points = [
+                { lat: -27.106284, lng: -52.612903, title: "Ponto 1" },
+                { lat: -27.1046314, lng: -52.6163245, title: "Ponto 2" },
+                { lat: -27.1014942, lng: -52.6172407, title: "Ponto 3" },
+                { lat: -27.0977756, lng: -52.6184543, title: "Ponto 4" },
+                { lat: -27.0948302, lng: -52.6192746, title: "Ponto 5" },
+                { lat: -27.0933836, lng: -52.6238874, title: "Ponto 6" },
+                { lat: -27.0915294, lng: -52.6293357, title: "Ponto 7" },
+                { lat: -27.0898907, lng: -52.6287550, title: "Ponto 8" },
+                { lat: -27.0864263, lng: -52.6258679, title: "Ponto 9" },
+                { lat: -27.0849452, lng: -52.6267249, title: "Ponto 10" },
+                { lat: -27.0831278, lng: -52.6294399, title: "Ponto 11" },
+                { lat: -27.0816496, lng: -52.6317124, title: "Ponto 12" },
+                { lat: -27.0804639, lng: -52.6334730, title: "Ponto 13" },
+                { lat: -27.0791205, lng: -52.6355346, title: "Ponto 14" },
+                { lat: -27.0777825, lng: -52.6375100, title: "Ponto 15" },
+                { lat: -27.0753071, lng: -52.6373598, title: "Ponto 16" },
+                { lat: -27.0739360, lng: -52.6342790, title: "Ponto 17" },
+                { lat: -27.0725469, lng: -52.6308287, title: "Ponto 18" },
+                { lat: -27.0713927, lng: -52.6278219, title: "Ponto 19" },
+                { lat: -27.0747632, lng: -52.6261076, title: "Ponto 20" },
+                { lat: -27.0788136, lng: -52.6246012, title: "Ponto 21" },
+                { lat: -27.0821320, lng: -52.6233681, title: "Ponto 22" },
+                { lat: -27.0866219, lng: -52.6216894, title: "Ponto 23" },
+                { lat: -27.0909414, lng: -52.6203141, title: "Ponto 24" },
+                { lat: -27.0947990, lng: -52.6192221, title: "Ponto 25" },
+                { lat: -27.0975567, lng: -52.6184677, title: "Ponto 26" },
+                { lat: -27.1011111, lng: -52.6174867, title: "Ponto 27" },
+                { lat: -27.1040184, lng: -52.6166897, title: "Ponto 28" },
+                { lat: -27.1064637, lng: -52.6133802, title: "Ponto 29" }
+            ];
+
+            // Remove marcadores anteriores
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+
+            // Adiciona novos marcadores
+            points.forEach((point) => {
+                const marker = new google.maps.Marker({
+                    position: { lat: point.lat, lng: point.lng },
+                    map: map,
+                    title: point.title,
+                    url: `https://www.google.com/maps?q=${point.lat},${point.lng}`
+                });
+                
+                marker.addListener('click', function() {
+                    window.open(marker.url, '_blank');
+                });
+
+                markers.push(marker);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="controls">
+        <button class="route-button" onclick="addMarkers()">Selecionar Rota Cristo Rei</button>
+    </div>
+    <div id="map"></div>
+</body>
+</html>

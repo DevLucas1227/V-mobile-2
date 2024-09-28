@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V Mobile - Transporte Inteligente em Chapecó</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Scroll Suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* HEADER - BARRA SUPERIOR */
+        header {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 10px 0; /* Diminuído o padding */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+
+        header img {
+            width: 120px; /* Reduzido o tamanho da logo */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        /* Botões superiores com fundo amarelo */
+        nav ul li a {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 8px 20px; /* Diminuído o padding */
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem; /* Diminuído o tamanho da fonte */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #fff;
+            color: #0baf00;
+        }
+
+        /* BANNER PRINCIPAL - GOOGLE MAPS */
+        .main-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 85vh; /* Ajustado para dar mais espaço ao mapa */
+            background-color: #e9e9e9;
+            margin-top: 100px; /* Ajustado para manter a distância da barra */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-banner #map {
+            width: 90%;
+            height: 100%;
+            max-height: 70vh; /* Ajustado para manter a harmonia */
+            border-radius: 15px;
+            box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ESPAÇAMENTO ADEQUADO */
+        .spacer {
+            height: 50px;
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* ROTEIROS */
+        .routes {
+            margin-top: 30px; /* Ajustado para melhor espaçamento */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-bottom: 50px;
+        }
+
+        .route-btn {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            margin: 15px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .route-btn:hover {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+
+        /* CARTÃO VIRTUAL */
+        .virtual-card {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 50px 0;
+            text-align: center;
+            box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .virtual-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .virtual-card p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .virtual-card .card-number {
+            background-color: #fff;
+            color: #0baf00;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* SEÇÃO DE SUPORTE */
+        .support-section {
+            background-color: #f1f1f1;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .support-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0baf00;
+        }
+
+        .support-section p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .support-section .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .support-section .contact-info p {
+            margin: 5px 0;
+        }
+
+        .support-section form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .support-section form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .support-section form input,
+        .support-section form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .support-section form button {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .support-section form button:hover {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+
+        .support-section small {
+            display: block;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            .main-banner {
+                height: 60vh;
+            }
+
+            .main-banner #map {
+                width: 100%;
+            }
+
+            .virtual-card {
+                padding: 30px;
+            }
+
+            .virtual-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .routes {
+                flex-direction: column;
+                padding: 0;
+            }
+
+            .route-btn {
+                width: 90%;
+                margin: 10px auto;
+            }
+
+            .support-section form {
+                width: 100%;
+            }
+        }
+    </style>
+    <script>
+        // Inicialização do Google Maps com foco em Chapecó
+        function initMap() {
+            var chapeco = { lat: -27.1004, lng: -52.6151 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: chapeco
+            });
+            var marker = new google.maps.Marker({
+                position: chapeco,
+                map: map
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <!-- Caminho para a logo -->
+            <a href="index.html"><img src="img/logoamarela.png.png" alt="V Mobile Logo"></a>
+            <nav>
+                <ul>
+                    <li><a href="recarga-online.html">Recarga Online</a></li>
+                    <li><a href="virtual-card.html">V.M Card</a></li>
+                    <li><a href="manage-card.html">Gestão do Cartão</a></li>
+                    <li><a href="#routes">Roteiros</a></li>
+                    <li><a href="#suporte">Contato</a></li> <!-- Link Atualizado -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-banner">
+        <div id="map"></div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div id="routes" class="routes">
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Cristo Rei</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1iUnWIkN3rXjBrWOzNSdSzMMO8hrChjE5/view?usp=drive_link">Ver Horários</a>
+                <a href="http://127.0.0.1:5500/v-mobile-route-optimization/routes.html">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Tomazelli</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1azkNuGZ3EhW7leACRBvcjyQW1mnB9Pne/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-tomazelli">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Parque das Palmeiras</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1A5OM5i-6RvHWzU7zHgq5NbmxZvZBZWSG/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-parque-palmeiras">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Vila Real</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1L8id6yV2987jrLQPDW2ZoVxUTGT-AzSS/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-vila-real">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Quedas do Palmital</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1V2sgDyBttrybyG2XKrochJcoB5s8eZI4/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-quedas-palmital">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">São Pedro</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1fG58LSXdsnGKoUCb6MIhCscXHocdFm7z/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-sao-pedro">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Trevo</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1kFjmSTaIt8l137jXB4xLixYgJkoXsR0i/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-trevo">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Seminário</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1L3AKu6xI_zNq5XFbBzCxV7bxrONhqT6w/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-seminario">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Presidente Médici</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1cJArKOhyprA3gPQrVRXcK7EkbYpmYx6C/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-presidente-medici">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Hospital Regional</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1el1HQJ_w0T_X87Q53B7Xv5t580IZKYDO/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-hospital-regional">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Santo Antônio</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1vtVDX8A4PHEq2cGg70Z70P8j3qllnf6o/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-santo-antonio">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Fernando Machado</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1GEJvIFrk_IJ4DwWCoL1gl6M06vXQJWVw/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-fernando-machado">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Passo dos Fortes</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/14yuHKCXl95cw-HWgFq9_2iuXz3-L7CSq/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-passo-dos-fortes">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Vitória</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1pFxnUseqCwEwCLzGCj3GG6GeRI_hDUnH/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-vitoria">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Cachenere</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/103MqVyOaa3ZARd4Q-VGd-cyGchVrYrep/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-cachenere">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Bela Vista</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1S0KGqdQmHrkGdAFSW7vyFN4h589hB_vd/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-bela-vista">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Vila Esperança</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1eI0RTC1aBZehXP9i3TFBT6oJb6Lfkzmw/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-vila-esperanca">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Vila Rica</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1YXy7RhdPOstJqeQtiDEXlLNKQk_3oE_2/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-vila-rica">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Universitário</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1UnzaX06XRzwweZXlfHiwicVuHb-_k2YT/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-universitario">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">São Cristóvão</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1ZhdDixM5KZtrpWBRmKO5IKZKuswNGjvq/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-sao-cristovao">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Guarujá</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1M2R5U0m5RSLs9clNj2VjsiZuR8prmY5y/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-guaruja">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Vila Geni</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1h5BC5-6WlwX4stEdod5mR80OSsT0MElZ/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-vila-geni">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">São José</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/12blUBifcNo2CQQPH0cfV81zF9QzpQeX/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-sao-jose">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">São Domingos</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1D-zPll5Ipl8czPslg0i61srbDBzglMF/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-sao-domingos">Ver Pontos</a>
+            </div>
+        </div>
+        <div class="route-btn-dropdown">
+            <button class="route-btn">Água Verde</button>
+            <div class="route-btn-options">
+                <a href="https://drive.google.com/file/d/1LQat6uj6f3TOYgM9X-8YTxKlSoVMt9Lh/view?usp=drive_link">Ver Horários</a>
+                <a href="/rota-agua-verde">Ver Pontos</a>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .route-btn-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+    
+        .route-btn-options {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+    
+        .route-btn-options a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+    
+        .route-btn-options a:hover {
+            background-color: #f1f1f1;
+        }
+    
+        .route-btn-dropdown:hover .route-btn-options {
+            display: block;
+        }
+    
+        .route-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    
+        .route-btn:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+    
+
+    <div id="virtual-card" class="virtual-card">
+        <h2>V.M Card</h2>
+        <p>Crie seu cartão virtual e tenha acesso a todos os serviços da V Mobile.</p>
+        <div class="card-number">**** **** **** 1234</div>
+        <p><a href="recarga-online.html" class="route-btn">Recargar Agora</a></p>
+    </div>
+
+    <!-- Nova Seção de Suporte -->
+    <div id="suporte" class="support-section">
+        <h2>Contato para Suporte</h2>
+
+        <div class="contact-info">
+            <p><strong>V Mobile - Serviço de Transporte</strong></p>
+            <p>Email: suporte@vmobile.com</p>
+            <p>Telefone: +55 (49) 9 4002-8922</p>
+            <p>Horário de atendimento: Segunda a Sexta, das 08:00 às 18:00</p>
+        </div>
+
+        <form action="processar_contato.php" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Seu email" required>
+
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" placeholder="Escreva sua mensagem" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <small>&copy; 2024 V Mobile - Todos os direitos reservados.</small>
+    </div>
+    <!-- Fim da Seção de Suporte -->
+
+    <footer>
+        <p>&copy; 2024 V Mobile - Todos os direitos reservados.</p>
+    </footer>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq1eR68ZDAjEcS9TzpJmhg0kDCBMQ1fLs&callback=initMap"></script>
+</body>
+
+</html>

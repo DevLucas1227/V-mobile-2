@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V.M Card - V Mobile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Scroll Suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* HEADER - BARRA SUPERIOR */
+        header {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+
+        header img {
+            width: 120px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        /* Botões superiores com fundo amarelo */
+        nav ul li a {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #fff;
+            color: #0baf00;
+        }
+
+        /* BANNER PRINCIPAL */
+        .banner {
+            padding-top: 80px; /* Ajustado para a barra fixa */
+            background-color: #0baf00;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px 50px 20px;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .banner-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .banner-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .banner-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .banner-text .cta-btn {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .banner-text .cta-btn:hover {
+            background-color: #fff;
+            color: #0baf00;
+        }
+
+        .banner-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .banner-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* SEÇÃO SOBRE O V.M CARD */
+        .about-card {
+            padding: 60px 20px;
+            background-color: #fff;
+            text-align: center;
+            min-height: 100vh; /* Deixa a aba mais extensa */
+        }
+
+        .about-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0baf00;
+        }
+
+        .about-card p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-card .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .about-card .feature {
+            width: 300px;
+            margin: 15px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card .feature:hover {
+            transform: translateY(-10px);
+        }
+
+        .about-card .feature img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .about-card .feature h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #0baf00;
+        }
+
+        .about-card .feature p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* SEÇÃO DE CRIAÇÃO DO CARTÃO */
+        .create-card {
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .create-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0baf00;
+            text-align: center;
+        }
+
+        .create-card p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            color: #555;
+        }
+
+        .create-card form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .create-card form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .create-card form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .create-card form input,
+        .create-card form select,
+        .create-card form textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .create-card form input:focus,
+        .create-card form select:focus,
+        .create-card form textarea:focus {
+            border-color: #0baf00;
+            outline: none;
+        }
+
+        .create-card form button {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        .create-card form button:hover {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+
+        .create-card form .required {
+            color: red;
+        }
+
+        /* POP-UP DE CONFIRMAÇÃO */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            color: #0baf00;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .modal-content .close-btn {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content .close-btn:hover {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+
+        /* CHAMADA PARA AÇÃO */
+        .cta-section {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-section .cta-btn {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .cta-section .cta-btn:hover {
+            background-color: #fff;
+            color: #0baf00;
+        }
+
+        .cta-section .cta-image {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .cta-section .cta-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        footer a {
+            color: #0baf00;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            .banner-content {
+                flex-direction: column;
+            }
+
+            .banner-image {
+                margin-top: 20px;
+            }
+
+            .about-card .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-card .feature {
+                width: 90%;
+            }
+
+            .create-card form {
+                padding: 20px;
+            }
+
+            .cta-section .cta-image {
+                display: none; /* Oculta a imagem no mobile para melhor responsividade */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <!-- Caminho para a logo -->
+            <a href="index.html"><img src="img/logoamarela.png" alt="V Mobile Logo"></a>
+            <nav>
+                <ul>
+                    <li><a href="#about">Sobre o V.M Card</a></li>
+                    <li><a href="#create-card">Crie seu Cartão</a></li>
+                    <li><a href="#cta">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- BANNER PRINCIPAL -->
+    <section class="banner">
+        <div class="banner-content">
+            <div class="banner-text">
+                <h1>Conheça o V.M Card</h1>
+                <p>O seu Cartão Virtual para facilitar ainda mais o seu transporte inteligente em Chapecó.</p>
+                <a href="#create-card" class="cta-btn">Solicitar Agora</a> <!-- Direciona para o formulário -->
+            </div>
+            <div class="banner-image">
+                <img src="img/onibus-escolar-em-areas-rurais-AgenciaBrasilia.gif" width="300px" alt="Transporte Inteligente">
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO SOBRE O V.M CARD -->
+    <section class="about-card" id="about">
+        <h2>Por que Escolher o V.M Card?</h2>
+        <p>O V.M Card é uma solução prática e segura para gerenciar suas viagens com a V Mobile. Com ele, você pode recarregar seu saldo, acompanhar suas viagens e aproveitar diversos benefícios exclusivos.</p>
+        <div class="features">
+            <div class="feature">
+                <img src="v-mobile-route-optimization/img/recarga.png" alt="Recarga Fácil">
+                <h3>Recarga Fácil</h3>
+                <p>Recarregue seu saldo de forma rápida e segura diretamente pelo aplicativo ou site.</p>
+            </div>
+            <div class="feature">
+                <img src="v-mobile-route-optimization/img/controlegast.png" alt="Controle de Gastos">
+                <h3>Controle de Gastos</h3>
+                <p>Acompanhe suas despesas e gerencie seu orçamento de transporte com eficiência.</p>
+            </div>
+            <div class="feature">
+                <img src="v-mobile-route-optimization/img/seg.png" width="50px" alt="Segurança">
+                <h3>Segurança</h3>
+                <p>Suas informações estão protegidas com tecnologia de ponta, garantindo total segurança nas transações.</p>
+            </div>
+            <div class="feature">
+                <img src="v-mobile-route-optimization/img/benef.png" alt="Benefícios Exclusivos">
+                <h3>Benefícios Exclusivos</h3>
+                <p>Aproveite promoções e descontos exclusivos para usuários do V.M Card.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE CRIAÇÃO DO CARTÃO -->
+    <section class="create-card" id="create-card">
+        <h2>Solicite Seu V.M Card</h2>
+        <p>Preencha o formulário abaixo para solicitar a criação do seu Cartão Virtual V.M. Receba benefícios exclusivos e gerencie suas viagens de forma prática e segura.</p>
+        <form id="card-form">
+            <!-- Informações Pessoais -->
+            <div class="form-group">
+                <label for="nome">Nome Completo <span class="required">*</span></label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Seu email" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone <span class="required">*</span></label>
+                <input type="tel" id="telefone" name="telefone" placeholder="(49) 98804-3355 ou 49988043355"
+                    pattern="^(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$"
+                    title="Por favor, insira um número de telefone válido no formato (49) 98804-3355 ou 49988043355."
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="endereco">Endereço Completo <span class="required">*</span></label>
+                <input type="text" id="endereco" name="endereco" placeholder="Seu endereço completo" required>
+            </div>
+
+            <!-- Informações do Cartão -->
+            <div class="form-group">
+                <label for="tipo_cartao">Tipo de Cartão <span class="required">*</span></label>
+                <select id="tipo_cartao" name="tipo_cartao" required>
+                    <option value="">Selecione</option>
+                    <option value="prepaid">Pré-pago</option>
+                    <option value="postpaid">Pós-pago</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="saldo_inicial">Saldo Inicial (R$) <span class="required">*</span></label>
+                <input type="number" id="saldo_inicial" name="saldo_inicial" placeholder="Valor para recarga inicial"
+                    min="0" step="0.01" required>
+            </div>
+
+            <!-- Informações de Segurança -->
+            <div class="form-group">
+                <label for="senha">Senha do Cartão <span class="required">*</span></label>
+                <input type="password" id="senha" name="senha" placeholder="Crie uma senha" minlength="6" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmar_senha">Confirmar Senha <span class="required">*</span></label>
+                <input type="password" id="confirmar_senha" name="confirmar_senha" placeholder="Confirme sua senha"
+                    minlength="6" required>
+            </div>
+
+            <!-- Botão de Envio -->
+            <button type="submit">Enviar Solicitação</button>
+        </form>
+    </section>
+
+    <!-- POP-UP DE CONFIRMAÇÃO -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <h2>Solicitação Enviada!</h2>
+            <p>Obrigado por solicitar seu V.M Card. Seus dados foram enviados com sucesso.</p>
+            <p>Para mais informações, enviamos um email para o endereço cadastrado.</p>
+            <button class="close-btn" id="close-modal">Fechar</button>
+        </div>
+    </div>
+
+    <!-- CHAMADA PARA AÇÃO -->
+    <section class="cta-section" id="cta">
+        <h2>Pronto para Simplificar suas Viagens?</h2>
+        <p>Solicite o seu V.M Card agora mesmo e aproveite todos os benefícios que preparamos para você!</p>
+        <a href="#create-card" class="cta-btn">Solicitar V.M Card</a> <!-- Direciona para o formulário -->
+        <div class="cta-image">
+            <img src="" alt="Benefícios do V.M Card">
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2024 V Mobile - Todos os direitos reservados.</p>
+        <p><a href="#contact">Entre em Contato</a></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Selecionar elementos
+        const form = document.getElementById('card-form');
+        const modal = document.getElementById('confirmation-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        // Função para abrir o modal
+        function openModal() {
+            modal.style.display = 'block';
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Evento de submissão do formulário
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Impede o envio real do formulário
+
+            // Aqui você pode adicionar lógica para enviar os dados para o backend
+
+            // Após submissão, abre o modal
+            openModal();
+
+            // Opcional: Limpar o formulário após submissão
+            form.reset();
+        });
+
+        // Evento para fechar o modal ao clicar no botão
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Evento para fechar o modal ao clicar fora do conteúdo do modal
+        window.addEventListener('click', function (e) {
+            if (e.target == modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

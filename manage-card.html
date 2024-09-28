@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão do V.M Card - V Mobile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Scroll Suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* HEADER - BARRA SUPERIOR */
+        header {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+
+        header img {
+            width: 120px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        /* Botões superiores com fundo amarelo */
+        nav ul li a {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #fff;
+            color: #0baf00;
+        }
+
+        /* BANNER PRINCIPAL */
+        .banner {
+            padding-top: 80px; /* Espaço para a barra fixa */
+            background-color: #0baf00;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px 50px 20px;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .banner .cta-btn {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 10px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .banner .cta-btn:hover {
+            background-color: #fff;
+            color: #0baf00;
+        }
+
+        /* SEÇÃO DE GESTÃO DO CARTÃO */
+        .manage-card {
+            padding: 60px 20px;
+            background-color: #fff;
+        }
+
+        .manage-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0baf00;
+            text-align: center;
+        }
+
+        .manage-card .card-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .manage-card .card-info {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .manage-card .card-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #0baf00;
+        }
+
+        .manage-card .card-info p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .manage-card .actions {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .manage-card .actions button {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .manage-card .actions button:hover {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+
+        /* SEÇÃO DE Faturas */
+        .invoices {
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .invoices h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #0baf00;
+            text-align: center;
+        }
+
+        .invoices table {
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .invoices th, .invoices td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .invoices th {
+            background-color: #0baf00;
+            color: #fff;
+        }
+
+        .invoices tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .invoices .download-btn {
+            background-color: #0baf00;
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .invoices .download-btn:hover {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            .manage-card .card-details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .manage-card .card-info {
+                width: 90%;
+            }
+
+            .invoices table, .invoices th, .invoices td {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <!-- Caminho para a logo -->
+            <a href="index.html"><img src="img/logoamarela.png.png" alt="V Mobile Logo"></a>
+            <nav>
+                <ul>
+                    <li><a href="recarga-online.html">Recarga Online</a></li>
+                    <li><a href="virtual-card.html">V.M Card</a></li>
+                    <li><a href="manage-card.html">Gestão do Cartão</a></li> <!-- Novo Link -->
+                    <li><a href="index.html#routes">Roteiros</a></li>
+                    <li><a href="index.html#suporte">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- BANNER PRINCIPAL -->
+    <section class="banner">
+        <h1>Gestão do V.M Card</h1>
+        <p>Gerencie seu Cartão Virtual de forma simples e segura.</p>
+    </section>
+
+    <!-- SEÇÃO DE GESTÃO DO CARTÃO -->
+    <section class="manage-card">
+        <h2>Detalhes do Seu V.M Card</h2>
+        <div class="card-details">
+            <div class="card-info">
+                <h3>Número do Cartão</h3>
+                <p>**** **** **** 1234</p>
+            </div>
+            <div class="card-info">
+                <h3>Data de Validade</h3>
+                <p>12/25</p>
+            </div>
+            <div class="card-info">
+                <h3>Saldo Disponível</h3>
+                <p>R$ 150,00</p>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="block-card">Bloquear Cartão</button>
+            <button id="unblock-card">Desbloquear Cartão</button>
+            <button id="update-info">Atualizar Informações</button>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE Faturas -->
+    <section class="invoices">
+        <h2>Faturas Recentes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01/09/2024</td>
+                    <td>Recarga Saldo</td>
+                    <td>R$ 50,00</td>
+                    <td><a href="#" class="download-btn">Baixar Fatura</a></td>
+                </tr>
+                <tr>
+                    <td>15/08/2024</td>
+                    <td>Recarga Saldo</td>
+                    <td>R$ 100,00</td>
+                    <td><a href="#" class="download-btn">Baixar Fatura</a></td>
+                </tr>
+                <!-- Adicione mais linhas conforme necessário -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2024 V Mobile - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Scripts para funcionalidades interativas (Simples exemplo) -->
+    <script>
+        document.getElementById('block-card').addEventListener('click', function () {
+            if (confirm('Tem certeza que deseja bloquear seu V.M Card?')) {
+                // Aqui você integraria com o backend para bloquear o cartão
+                alert('Seu V.M Card foi bloqueado com sucesso.');
+            }
+        });
+
+        document.getElementById('unblock-card').addEventListener('click', function () {
+            if (confirm('Tem certeza que deseja desbloquear seu V.M Card?')) {
+                // Aqui você integraria com o backend para desbloquear o cartão
+                alert('Seu V.M Card foi desbloqueado com sucesso.');
+            }
+        });
+
+        document.getElementById('update-info').addEventListener('click', function () {
+            // Redirecionar para uma página de atualização de informações ou abrir um modal
+            window.location.href = 'update-info.html'; // Crie esta página conforme necessário
+        });
+    </script>
+</body>
+
+</html>

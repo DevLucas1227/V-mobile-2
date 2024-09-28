@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V Mobile - Acesso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('v-mobile-route-optimization/img/onibus.png'); /* Adicione o caminho da imagem de fundo aqui */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            filter: brightness(0.8); /* Para escurecer a imagem e tornar o texto mais legível */
+        }
+
+        /* CONTAINER DE LOGIN */
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com opacidade para melhor legibilidade */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0baf00;
+        }
+
+        .login-container p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .login-container input:focus {
+            border-color: #0baf00;
+            outline: none;
+        }
+
+        .login-container button {
+            background-color: #0baf00;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #ffeb3b;
+            color: #333;
+        }
+
+        .login-container a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0baf00;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px;
+            }
+
+            .login-container h1 {
+                font-size: 1.5rem;
+            }
+
+            .login-container input,
+            .login-container button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h1>Acesso V Mobile</h1>
+        <p>Entre com suas credenciais para acessar a plataforma</p>
+
+        <form id="loginForm">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p>Não tem uma conta? <a href="#" id="showRegister">Crie uma aqui!</a></p>
+
+        <form id="registerForm" style="display:none;">
+            <input type="email" name="registerEmail" placeholder="Email" required>
+            <input type="password" name="registerPassword" placeholder="Senha" required>
+            <button type="submit">Criar Conta</button>
+        </form>
+
+        <a href="#">Esqueceu sua senha?</a>
+    </div>
+
+    <script>
+        // Função para mostrar o formulário de registro
+        document.getElementById('showRegister').addEventListener('click', function () {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            // Capturando os valores dos campos de entrada
+            const email = event.target.email.value;
+            const password = event.target.password.value;
+
+            // Verificação de credenciais
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                // Se as credenciais forem válidas, redireciona para index.html
+                window.location.href = "index.html"; // Redireciona para index.html
+            } else {
+                // Exibe uma mensagem de erro se as credenciais forem inválidas
+                alert("E-mail ou senha incorretos. Tente novamente.");
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            // Capturando os valores dos campos de entrada
+            const registerEmail = event.target.registerEmail.value;
+            const registerPassword = event.target.registerPassword.value;
+
+            // Armazenando as credenciais no localStorage
+            const user = {
+                email: registerEmail,
+                password: registerPassword
+            };
+
+            localStorage.setItem('user', JSON.stringify(user));
+            alert("Usuário criado com sucesso! Você pode fazer login agora.");
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        });
+    </script>
+
+</body>
+
+</html>
+
